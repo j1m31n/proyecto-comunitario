@@ -1,0 +1,35 @@
+name: Ejecutar Bot de Proyectos
+
+on:
+  schedule:
+    # Se ejecuta automáticamente cada 6 horas
+    - cron: '0 */6 * * *'
+  # Permite ejecutarlo manualmente desde GitHub cuando quieras probarlo
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Ejecutar bot.py
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python bot.py
+
+      - name: Guardar y subir cambios si hubo actualizaciones
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add proyectos.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update: Nuevo proyecto generado por Bot" && git push)
