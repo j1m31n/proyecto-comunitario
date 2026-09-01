@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto de Apoyo Comunitario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Montserrat', sans-serif;
+            --primary-gradient: linear-gradient(135deg, #1e293b, #334155);
+            --info-gradient: linear-gradient(135deg, #4f46e5, #06b6d4);
+            --secondary-color: #ff5e5b;
+            --paypal-color: #0070ba;
+            --unlock-color: #10b981;
+            --ad-color: #8b5cf6;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.05);
+            --border-color: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { height: 100%; overflow-y: scroll; }
+        body {
+            background-color: #f8fafc;
+            color: var(--text-dark);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            min-height: 100%;
+            display: block;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-heading); letter-spacing: -0.02em; }
+
+        .hero {
+            background: var(--primary-gradient);
+            color: #ffffff;
+            text-align: center;
+            padding: 3.5rem 1rem 3rem 1rem;
+        }
+
+        .header-graphic-banner {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 1.2rem;
+        }
+
+        .header-graphic-banner i { color: #38bdf8; font-size: 1.8rem; }
+        .hero-content h1 { font-size: 2.1rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .hero-content p { font-size: 0.95rem; max-width: 600px; margin: 0 auto; color: #94a3b8; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            height: 42px !important;
+            min-width: 140px;
+            padding: 0 20px !important;
+            border: none;
+            border-radius: 99px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem !important;
+            font-family: var(--font-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
+        .btn-donate { background-color: var(--secondary-color); color: white; }
+        .btn-donate-secondary { background-color: var(--paypal-color); color: white; }
+        .btn-unlock { background-color: var(--unlock-color); color: white; min-width: 210px; }
+        .btn-ad { background-color: var(--ad-color); color: white; min-width: 250px; }
+
+        .container { max-width: 850px; margin: 2.5rem auto; padding: 0 1.25rem; width: 100%; }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .card h2 { font-size: 1.3rem; color: var(--text-dark); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 10px; }
+        .card p { color: var(--text-muted); font-size: 0.925rem; margin-bottom: 1rem; }
+
+        .category-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; }
+        .tab-btn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            height: 40px;
+            padding: 0 18px;
+            border-radius: 99px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-family: var(--font-main);
+        }
+
+        .tab-btn:hover { background: #f1f5f9; color: var(--text-dark); }
+        .tab-btn.active { background: var(--text-dark); color: #ffffff; border-color: var(--text-dark); }
+
+        .tab-content { display: none; }
+        .tab-content.active-content { display: block; animation: fadeIn 0.3s ease-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .blurred-text {
+            filter: blur(4px);
+            user-select: none;
+            margin: 1.5rem 0 2rem 0;
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            border: 1px dashed #cbd5e1;
+        }
+
+        .unlock-box { text-align: center; margin-top: -42px; position: relative; z-index: 10; }
+
+        .gradient-info-card { background: var(--info-gradient); color: white; border: none; }
+        .gradient-info-card h2 { color: white; justify-content: center; margin-bottom: 2rem; }
+
+        .how-it-works-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; text-align: center; }
+        .step i { font-size: 2rem; margin-bottom: 0.8rem; opacity: 0.9; }
+        .step h3 { font-size: 1rem; margin-bottom: 0.4rem; color: #ffffff; }
+        .step p { font-size: 0.85rem; color: rgba(255,255,255,0.85); margin-bottom: 0; }
+
+        .recommendations-card h2 { margin-bottom: 0.2rem; }
+        .recommendations-card > p { margin-bottom: 1.5rem; }
+        .recommendations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; }
+
+        .rec-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .rec-item:hover { background: #ffffff; border-color: #cbd5e1; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .rec-item i { font-size: 1.5rem; color: var(--secondary-color); width: 24px; text-align: center; }
+        .rec-item strong { display: block; font-size: 0.875rem; color: var(--text-dark); }
+        .rec-item span { color: var(--text-muted); font-size: 0.775rem; }
+
+        .footer { background-color: #0f172a; color: #f8fafc; padding: 3.5rem 1rem 3rem 1rem; margin-top: 3rem; width: 100%; }
+        .footer-grid { max-width: 850px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 2rem; text-align: center; }
+
+        .global-donation-box {
+            background: #1e293b;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .global-donation-box h3 { font-size: 1rem; margin-bottom: 0.4rem; color: #ffffff; }
+        .global-donation-box p { font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem; }
+        .global-donation-box .btn-container { display: flex; justify-content: center; gap: 10px; }
+
+        .footer-links { display: flex; gap: 2rem; justify-content: center; align-items: center; width: 100%; padding-bottom: 1rem; }
+        .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+        .footer-links a:hover { color: #ffffff; }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="header-graphic-banner">
+            <i class="fas fa-network-wired"></i>
+            <i class="fas fa-hand-holding-heart"></i>
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="hero-content">
+            <h1>Proyecto de Apoyo Comunitario</h1>
+            <p>Contenido independiente impulsado por la comunidad. Explora o apoya libremente.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav class="category-tabs">
+            <button class="tab-btn active" onclick="openCategory(event, 'finanzas')">
+                <i class="fas fa-coins"></i> Finanzas
+            </button>
+            <button class="tab-btn" onclick="openCategory(event, 'tecnologia')">
+                <i class="fas fa-laptop-code"></i> Tecnología
+            </button>
+            <button class="tab-btn" onclick="openCategory(event, 'autoayuda')">
+                <i class="fas fa-brain"></i> Autoayuda
+            </button>
+            <button class="tab-btn" onclick="openCategory(event, 'recursos')">
+                <i class="fas fa-folder-open"></i> Recursos Gratis
+            </button>
+        </nav>
+
+        <div id="finanzas" class="tab-content active-content"></div>
+        <div id="tecnologia" class="tab-content"></div>
+        <div id="autoayuda" class="tab-content"></div>
+        <div id="recursos" class="tab-content"></div>
+
+        <section class="card gradient-info-card">
+            <h2>Cómo Funciona</h2>
+            <div class="how-it-works-grid">
+                <div class="step">
+                    <i class="fas fa-hand-pointer"></i>
+                    <h3>1. Explora</h3>
+                    <p>Selecciona el contenido de tu interés dentro de las categorías.</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-unlock-alt"></i>
+                    <h3>2. Accede</h3>
+                    <p>Desbloquea con micropago o viendo un anuncio patrocinado gratis.</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-heart"></i>
+                    <h3>3. Apoya</h3>
+                    <p>Mantienes este proyecto libre de suscripciones obligatorias.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card recommendations-card">
+            <h2>Recomendaciones de la Comunidad</h2>
+            <p>Proyectos destacados e iniciativas recomendadas por nuestros lectores:</p>
+            <div class="recommendations-grid">
+                <a href="#" class="rec-item">
+                    <i class="fas fa-globe"></i>
+                    <div>
+                        <strong>Red de Creativos Libre</strong>
+                        <span>Plataforma de recursos de diseño</span>
+                    </div>
+                </a>
+                <a href="#" class="rec-item">
+                    <i class="fas fa-book-open"></i>
+                    <div>
+                        <strong>Biblioteca Abierta</strong>
+                        <span>Libros digitales en dominio público</span>
+                    </div>
+                </a>
+                <a href="#" class="rec-item">
+                    <i class="fas fa-seedling"></i>
+                    <div>
+                        <strong>Iniciativas Comunitarias</strong>
+                        <span>Proyectos sostenibles independientes</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="global-donation-box">
+                <h3><i class="fas fa-mug-hot"></i> ¿Aprecias esta plataforma?</h3>
+                <p>Puedes dejar una contribución voluntaria para el mantenimiento del servidor.</p>
+                <div class="btn-container">
+                    <a href="https://ko-fi.com" target="_blank" class="btn btn-donate"><i class="fas fa-donate"></i> Ko-fi</a>
+                    <a href="https://paypal.me" target="_blank" class="btn btn-donate-secondary"><i class="fab fa-paypal"></i> PayPal</a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <a href="#">Términos</a>
+                <a href="#">Privacidad</a>
+                <a href="#">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
